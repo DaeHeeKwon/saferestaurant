@@ -1,8 +1,12 @@
 from django.urls import path
 
-from .views import HomeView 
+
+from .views import HomeView, RestaurantListView
+
+app_name = 'saferestaurantinfo'
 
 urlpatterns = [
-    path('', HomeView.as_view(), name="home"), # home 연결
-    
+    path('', HomeView.as_view(), name="index"), # home 연결
+    path('saferestaurantlist/', RestaurantListView.as_view(), name="saferestaurantlist"),
+
 ]
