@@ -20,5 +20,6 @@ from .views import HomeView
 urlpatterns = [
     path('', HomeView.as_view(), name="home"), # home 연결
     path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('saferestaurantinfo/', include('saferestaurantinfo.urls')),
 ]
