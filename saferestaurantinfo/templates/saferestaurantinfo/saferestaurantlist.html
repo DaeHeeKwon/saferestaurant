@@ -11,14 +11,14 @@
                                         
         <div class="card-body">
             <form class="form-header" action="." method="POST">
-                <input class="au-input au-input--xl" type="text" id="region" placeholder="시/도를 입력하세요" />
+                <input class="au-input au-input--xl" type="text" id="region" placeholder="시/도 또는 구까지의 정보를 입력하세요" />
                 <button class="au-btn--submit" type="button" id="btn_search">
                     <i class="zmdi zmdi-search"></i>
                 </button>
             </form>
             <br>
             <div class="table-responsive m-b-30" style="font-size: 8pt;">
-                <table id="apt_table" class="table table-borderless table-striped table-earning">
+                <table id="sr_table" class="table table-borderless table-striped table-earning">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -47,21 +47,20 @@ $(function(){
             return;
         }
 
-        $('#apt_table tbody').empty();
+        $('#sr_table tbody').empty();
 
         $.ajax({
             "url": "/saferestaurantinfo/saferestaurantlist/" + region,
             "method": "GET",
             "dataType":"json",
             "success": function(data, status, xhr){
-                alert(data[0]);
                 for(var i=0; i<data.length; i++){
                     var tr = $('<tr></tr>');
-                    $('<td></td>').text(data[i][0]).appendTo(tr); // 주소
-                    $('<td></td>').text(data[i][2]).appendTo(tr); // 최저가격
-                    $('<td></td>').text(data[i][4]).appendTo(tr);
-                    $('<td></td>').text(data[i][6]).appendTo(tr);
-                    $('#apt_table tbody').append(tr);
+                    $('<td></td>').text(data[i][0]).appendTo(tr); // No
+                    $('<td></td>').text(data[i][2]).appendTo(tr); // 음식점 이름
+                    $('<td></td>').text(data[i][4]).appendTo(tr); // 주소
+                    $('<td></td>').text(data[i][6]).appendTo(tr); // 전화번호
+                    $('#sr_table tbody').append(tr);
                 };
             },
             "error": function(xhr, status, err){
