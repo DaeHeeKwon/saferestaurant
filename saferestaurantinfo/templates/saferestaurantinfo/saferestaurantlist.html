@@ -17,18 +17,14 @@
                 </button>
             </form>
             <br>
-            <div class="table-responsive m-b-30">
+            <div class="table-responsive m-b-30" style="font-size: 8pt;">
                 <table id="apt_table" class="table table-borderless table-striped table-earning">
                     <thead>
                         <tr>
-                            <th>시도명</th>
+                            <th>No</th>
                             <th>음식점 이름</th>
-                            <th>안심식당 지정일</th>
                             <th>주소</th>
-                            <th>상세 주소</th>
-                            <th>업종</th>
                             <th>전화번호</th>
-                            <th>수정일</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,3 +35,40 @@
     </div>
 
 {% endblock main_content %}
+
+{% block custom_js %}
+<script type="text/javascript">
+
+$(function(){
+    $('#btn_search').on('click',function(event){
+
+        var region = $('#region').val();
+        if(!region){
+            return;
+        }
+
+        $('#apt_table tbody').empty();
+
+        $.ajax({
+            "url": "/saferestaurantinfo/saferestaurantlist/" + region,
+            "method": "GET",
+            "dataType":"json",
+            "success": function(data, status, xhr){
+                alert(data[0]);
+                for(var i=0; i<data.length; i++){
+                    var tr = $('<tr></tr>');
+                    $('<td></td>').text(data[i][0]).appendTo(tr); // 주소
+                    $('<td></td>').text(data[i][2]).appendTo(tr); // 최저가격
+                    $('<td></td>').text(data[i][4]).appendTo(tr);
+                    $('<td></td>').text(data[i][6]).appendTo(tr);
+                    $('#apt_table tbody').append(tr);
+                };
+            },
+            "error": function(xhr, status, err){
+                alert("err");
+            }
+        })
+    });
+});
+</script>
+{% endblock custom_js %}
