@@ -165,10 +165,6 @@
                                     </div>
                                     <div class="account-dropdown__item">
                                         <a href="#">
-                                            <i class="zmdi zmdi-email"></i>Email</a>
-                                    </div>
-                                    <div class="account-dropdown__item">
-                                        <a href="#">
                                             <i class="zmdi zmdi-notifications"></i>Notifications</a>
                                     </div>
                                 </div>
@@ -176,44 +172,62 @@
                         </div>
                         <div class="account-wrap">
                             <div class="account-item account-item--style2 clearfix js-item-menu">
+                                {% if user.is_active %}
                                 <div class="image">
-                                    <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                    <img src="https://scymark.semarangkota.go.id/daftar-aplikasi/kategori/20190201025730icon_user.png" alt="user" />
                                 </div>
                                 <div class="content">
-                                    <a class="js-acc-btn" href="#">john doe</a>
+                                    <a class="js-acc-btn" href="#">{{ user.get_username }}</a>
                                 </div>
+                                {% else %}
+                                <div class="content">
+                                    <a class="js-acc-btn" href="#">Anonymous</a>
+                                </div>
+                                {% endif %}
                                 <div class="account-dropdown js-dropdown">
                                     <div class="info clearfix">
                                         <div class="image">
                                             <a href="#">
-                                                <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                                {% if user.is_active %}
+                                                <img src="https://scymark.semarangkota.go.id/daftar-aplikasi/kategori/20190201025730icon_user.png" alt="user" />
+                                                {% endif %}
                                             </a>
                                         </div>
                                         <div class="content">
+                                            {% if user.is_active %}
                                             <h5 class="name">
-                                                <a href="#">&ensp;Jhon doe&ensp;</a>
+                                                <a href="#">{{ user.get_username }}</a>
                                             </h5>
-                                            <span class="email">johndoe@example.com</span>
+                                            {% else %}
+                                            <h5 class="name">
+                                                <a href="#">Login/Register</a>
+                                            </h5>
+                                            {% endif %}
                                         </div>
                                     </div>
+                                    {% if user.is_active %}
                                     <div class="account-dropdown__body">
                                         <div class="account-dropdown__item">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-account"></i>Account</a>
-                                        </div>
-                                        <div class="account-dropdown__item">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-settings"></i>Setting</a>
-                                        </div>
-                                        <div class="account-dropdown__item">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-money-box"></i>Billing</a>
+                                            <a href="/accounts/password_change/">
+                                                <i class="zmdi zmdi-account"></i>Change Password</a>
                                         </div>
                                     </div>
                                     <div class="account-dropdown__footer">
-                                        <a href="#">
+                                        <a href="/accounts/logout/">
                                             <i class="zmdi zmdi-power"></i>Logout</a>
                                     </div>
+                                    {% else %}
+                                    <div class="account-dropdown__body">
+                                        <div class="account-dropdown__item">
+                                            <a href="{% url 'register' %}">
+                                                <i class="zmdi zmdi-account"></i>Register</a>
+                                        </div>
+                                    </div>
+                                    <div class="account-dropdown__footer">
+                                        <a href="/accounts/login/">
+                                            <i class="zmdi zmdi-power"></i>Login</a>
+                                    </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -406,10 +420,6 @@
                             </div>
                             <div class="account-dropdown__item">
                                 <a href="#">
-                                    <i class="zmdi zmdi-email"></i>Email</a>
-                            </div>
-                            <div class="account-dropdown__item">
-                                <a href="#">
                                     <i class="zmdi zmdi-notifications"></i>Notifications</a>
                             </div>
                         </div>
@@ -434,7 +444,6 @@
                                     <h5 class="name">
                                         <a href="#">john doe</a>
                                     </h5>
-                                    <span class="email">johndoe@example.com</span>
                                 </div>
                             </div>
                             <div class="account-dropdown__body">
