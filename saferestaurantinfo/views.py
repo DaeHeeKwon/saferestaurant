@@ -10,6 +10,26 @@ from django.http import HttpResponse, JsonResponse
 class HomeView(TemplateView):
     template_name = 'saferestaurantinfo/index.html'
 
+class HomeInfoView(View):
+    def get(self, request):
+        connection_info = { 'host': 'localhost', 'user': 'root', 'password': 'Kweondh123!', 'db': 'saferestaurant', 'charset': 'utf8' }
+        conn = pymysql.connect(**connection_info)
+        cursor = conn.cursor()
+
+        sql = 'select sido, count(*) from safe_restaurant group by sido order by count(*) desc'
+        cursor.execute(sql)
+        conn.commit()
+
+        datas2 = cursor.fetchall()
+        modified_data=[]
+
+        for row in datas2:
+            modified_data.append(row[1])
+
+        json_data=json.dumps(modified_data, ensure_ascii=False)
+
+        return HttpResponse(json_data, content_type="application/json;charset=utf-8")
+
 class RestaurantListView(TemplateView):
     template_name = 'saferestaurantinfo/saferestaurantlist.html'
     

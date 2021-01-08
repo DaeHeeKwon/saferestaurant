@@ -85,15 +85,21 @@
                                     <i class="fas fa-copy"></i>
                                     <span class="bot-line"></span>Pages</a>
                                 <ul class="header3-sub-list list-unstyled">
+                                    {% if user.is_active %}
                                     <li>
-                                        <a href="login.html">Login</a>
+                                        <a href="/accounts/logout/">Logout</a>
                                     </li>
                                     <li>
-                                        <a href="register.html">Register</a>
+                                        <a href="/accounts/password_change/">Change Password</a>
+                                    </li>
+                                    {% else %}
+                                    <li>
+                                        <a href="/accounts/login/">Login</a>
                                     </li>
                                     <li>
-                                        <a href="forget-pass.html">Forget Password</a>
+                                        <a href="{% url 'register' %}">Register</a>
                                     </li>
+                                    {% endif %}
                                 </ul>
                             </li>
                             
@@ -299,15 +305,21 @@
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-copy"></i>Pages</a>
                             <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                                {% if user.is_active %}
                                 <li>
-                                    <a href="login.html">Login</a>
+                                    <a href="/accounts/logout/">Logout</a>
                                 </li>
                                 <li>
-                                    <a href="register.html">Register</a>
+                                    <a href="/accounts/password_change/">Change Password</a>
+                                </li>
+                                {% else %}
+                                <li>
+                                    <a href="/accounts/login/">Login</a>
                                 </li>
                                 <li>
-                                    <a href="forget-pass.html">Forget Password</a>
+                                    <a href="{% url 'register' %}">Register</a>
                                 </li>
+                                {% endif %}
                             </ul>
                         </li>
                         <li class="has-sub">
