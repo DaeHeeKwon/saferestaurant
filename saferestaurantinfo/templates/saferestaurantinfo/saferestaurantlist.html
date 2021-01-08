@@ -8,7 +8,6 @@
 {% block main_content %}
 
     <div class="card border border-secondary">
-                                        
         <div class="card-body">
             <form class="form-header" action="." method="POST">
                 <input class="au-input au-input--xl" type="text" id="region" placeholder="시/도 또는 구까지의 정보를 입력하세요" />
@@ -31,6 +30,38 @@
                     </tbody>
                 </table>
             </div>
+            <h5> 
+                {% if page_obj.has_previous %} 
+                <a href='?page={{page_obj.previous_page_number}}'>Previous</a> 
+                {% endif %} 
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }} 
+                {% if page_obj.has_next %} 
+                <a href='?page={{page_obj.next_page_number}}'>Next</a> 
+                {% endif %} 
+            </h5>
+
+
+        </div>
+    </div>
+    <div class="card border border-secondary">
+        <div class="card-header">
+            <strong class="card-title" id="restaurant_card_title">Company Name</strong>
+        </div>
+        <div class="card-header">
+            <h3 class="title-3 m-b-30">Basic Information</h3>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-top-campaign" id="restaurant_detail_table">
+                <thead>
+                    <tr>
+                        <th>구분</th>
+                        <th>내용</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -40,6 +71,7 @@
 <script type="text/javascript">
 
 $(function(){
+    
     $('#btn_search').on('click',function(event){
 
         var region = $('#region').val();
@@ -67,7 +99,38 @@ $(function(){
                 alert("err");
             }
         })
+
+        
     });
+    list_td_names = ['식당번호', '시/도/군/구 정보', '식당명', '대표','안심식당 지정일','주소','업종','업종상세','전화번호'];
+
+    $('#sr_table').on('click', 'tr', function(event) { // id가 stocks_table인 테이블의 tr 태그에 이벤트 연결
+        
+        event.preventDefault();
+        event.stopPropagation();
+
+        var symbol = $(this).find("td:eq(0)").text();
+        $.ajax({
+            "url": "/saferestaurantinfo/" + symbol,
+            "method": "GET",
+            "success": function(data, status, xhr) {
+                $('#restaurant_card_title').text(data[2]);
+                $('#restaurant_detail_table tbody').empty();
+                for (var idx = 0; idx < list_td_names.length; idx++) {
+                    var tr = $('<tr></tr>');
+                    $('<td></td>').text(list_td_names[idx]).appendTo(tr);
+                    $('<td></td>').text(data[idx]).appendTo(tr);
+                    $('#restaurant_detail_table tbody').append(tr);                    
+                };
+
+            },
+            "error": function(xhr, status, err) {
+                alert(err);
+            }
+        })
+    });
+    
+    
 });
 </script>
 {% endblock custom_js %}

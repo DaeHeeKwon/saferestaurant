@@ -9,6 +9,7 @@
     <meta name="author" content="Hau Nguyen">
     <meta name="keywords" content="au theme template">
 
+
     <!-- Title Page-->
     {% block title %}
     <title>Dashboard 3</title>
@@ -242,8 +243,8 @@
             <div class="header-mobile__bar">
                 <div class="container-fluid">
                     <div class="header-mobile-inner">
-                        <a class="logo" href="index.html">
-                            <img src="images/icon/logo-white.png" alt="CoolAdmin" />
+                        <a href="{% url 'home' %}">
+                            K . S . R
                         </a>
                         <button class="hamburger hamburger--slider" type="button">
                             <span class="hamburger-box">
@@ -258,19 +259,19 @@
                     <ul class="navbar-mobile__list list-unstyled">
                         <li class="has-sub">
                             <a class="js-arrow" href="#">
-                                <i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                                <i class="fas fa-tachometer-alt"></i>안심식당 정보</a>
                             <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                                 <li>
-                                    <a href="index.html">Dashboard 1</a>
+                                    <a href="{% url 'saferestaurantinfo:index' %}">전국 안심식당 정보</a>
                                 </li>
                                 <li>
-                                    <a href="index2.html">Dashboard 2</a>
+                                    <a href="{% url 'saferestaurantinfo:saferestaurantlist' %}">안심식당 검색</a>
                                 </li>
                                 <li>
-                                    <a href="index3.html">Dashboard 3</a>
+                                    <a href="#">Dashboard 3</a>
                                 </li>
                                 <li>
-                                    <a href="index4.html">Dashboard 4</a>
+                                    <a href="#">Dashboard 4</a>
                                 </li>
                             </ul>
                         </li>
@@ -428,42 +429,61 @@
                 <div class="account-wrap">
                     <div class="account-item account-item--style2 clearfix js-item-menu">
                         <div class="image">
-                            <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                            {% if user.is_active %}
+                            <img src="https://scymark.semarangkota.go.id/daftar-aplikasi/kategori/20190201025730icon_user.png" alt="user" />
+                            {% endif %}
                         </div>
+                        {% if user.is_active %}
                         <div class="content">
-                            <a class="js-acc-btn" href="#">john doe</a>
+                            <a class="js-acc-btn" href="#">{{ user.get_username }}</a>
                         </div>
+                        {% else %}
+                        <div class="content">
+                            <a class="js-acc-btn" href="#">Anonymous</a>
+                        </div>
+                        {% endif %}
                         <div class="account-dropdown js-dropdown">
                             <div class="info clearfix">
                                 <div class="image">
                                     <a href="#">
-                                        <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                        <img src="https://scymark.semarangkota.go.id/daftar-aplikasi/kategori/20190201025730icon_user.png" alt="John Doe" />
                                     </a>
                                 </div>
                                 <div class="content">
+                                    {% if user.is_active %}
                                     <h5 class="name">
-                                        <a href="#">john doe</a>
+                                        <a href="#">{{ user.get_username }}</a>
                                     </h5>
+                                    {% else %}
+                                    <h5 class="name">
+                                        <a href="#">Login/Register</a>
+                                    </h5>
+                                    {% endif %}
                                 </div>
                             </div>
+                            {% if user.is_active %}
                             <div class="account-dropdown__body">
                                 <div class="account-dropdown__item">
-                                    <a href="#">
-                                        <i class="zmdi zmdi-account"></i>Account</a>
-                                </div>
-                                <div class="account-dropdown__item">
-                                    <a href="#">
-                                        <i class="zmdi zmdi-settings"></i>Setting</a>
-                                </div>
-                                <div class="account-dropdown__item">
-                                    <a href="#">
-                                        <i class="zmdi zmdi-money-box"></i>Billing</a>
+                                    <a href="/accounts/password_change/">
+                                        <i class="zmdi zmdi-account"></i>Change Password</a>
                                 </div>
                             </div>
                             <div class="account-dropdown__footer">
-                                <a href="#">
+                                <a href="/accounts/logout/">
                                     <i class="zmdi zmdi-power"></i>Logout</a>
                             </div>
+                            {% else %}
+                            <div class="account-dropdown__body">
+                                <div class="account-dropdown__item">
+                                    <a href="{% url 'register' %}">
+                                        <i class="zmdi zmdi-account"></i>Register</a>
+                                </div>
+                            </div>
+                            <div class="account-dropdown__footer">
+                                <a href="/accounts/login/">
+                                    <i class="zmdi zmdi-power"></i>Login</a>
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -471,44 +491,19 @@
         </div>
         <!-- END HEADER MOBILE -->
 
-        <!-- PAGE CONTENT-->
-        <div class="page-content--bgf7">
-            <!-- BREADCRUMB-->
-            <section class="au-breadcrumb2">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="au-breadcrumb-content">
-                                <div class="au-breadcrumb-left">
-                                    <span class="au-breadcrumb-span" style="font-size: 30pt;">Korean Safe Restaurant</span>
-                                </div>
-                                <form class="au-form-icon--sm" action="" method="post">
-                                    <input class="au-input--w300 au-input--style2" type="text" placeholder="Search for datas &amp; reports...">
-                                    <button class="au-btn--submit2" type="submit">
-                                        <i class="zmdi zmdi-search"></i>
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+        <!-- MAIN CONTENT-->
+        <section class=" col-md-12">
+            <div class="container">
+                <div class="row" >
+                    <section class='col-md-12'>
+                        <hr>
+                        {% block main_content %}
+                        {% endblock main_content %}
+                    </section>
                 </div>
-            </section>
-            <!-- END BREADCRUMB-->
-
-
-            <!-- MAIN CONTENT-->
-            <section class=" col-md-12">
-                <div class="container">
-                    <div class="row" >
-                        <section class='col-md-12'>
-                            <hr>
-                            {% block main_content %}
-                            {% endblock main_content %}
-                        </section>
-                    </div>
-                </div>
-            </section>
-            <!-- END MAIN CONTENT-->
+            </div>
+        </section>
+        <!-- END MAIN CONTENT-->
             
             <!-- END STATISTIC CHART-->
 
@@ -721,7 +716,7 @@
             <!-- END DATA TABLE -->
 
             <!-- COPYRIGHT-->
-            <section class="p-t-60 p-b-20">
+            <section class="p-t-60 p-b-20" style="position:unset ;">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
