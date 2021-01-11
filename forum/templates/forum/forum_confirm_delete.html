@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>saferestaurant-Forum</title>
+{% endblock %}
+
+{% block content %}
+
+    <h1>Forum Delete</h1>
+    <br>
+
+    <form action="." method="forum">{% csrf_token %}
+        <p>Are you sure you want to delete "{{ object }}" ?</p>
+        <input type="submit" value="Confirm" class="btn btn-danger btn-sm" />
+    </form>
+
+{% endblock %}
+

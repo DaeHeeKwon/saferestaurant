@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     # customapps
     'saferestaurantinfo.apps.SaferestaurantinfoConfig',
+    'forum.apps.ForumConfig',
 ]
 
 MIDDLEWARE = [

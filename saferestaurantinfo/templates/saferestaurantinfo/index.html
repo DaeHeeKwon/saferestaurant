@@ -259,8 +259,8 @@ $(function(){
                 $('#number'+num).text(data[i]);
                 if( i <= 4 ){
                     var tr = $('<tr></tr>');
-                    $('<td></td>').text(num+'. '+sido_data[i]).appendTo(tr); // 주소
-                    $('<td></td>').text(data[i]).appendTo(tr); // 아파트 이름
+                    $('<td></td>').text(num+'. '+sido_data[i]).appendTo(tr);
+                    $('<td></td>').text(data[i]).appendTo(tr);
                     $('#table-top-rating tbody').append(tr);
                 };
                 total = total + data[i];
@@ -275,7 +275,7 @@ $(function(){
     })
     var bar_chart = null;
     function show_restaurant_bar_chart(labels, datasets){
-        //bar chart
+
         var ctx = $('#widgetChart6');
         if (ctx) {
             ctx.height = 200;

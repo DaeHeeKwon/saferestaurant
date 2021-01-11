@@ -24,4 +24,5 @@ urlpatterns = [
     path('accounts/register/', UserCreateView.as_view(), name="register"),
     path('accounts/register/done/', UserCreateDoneView.as_view(), name="register_done"),
     path('saferestaurantinfo/', include('saferestaurantinfo.urls')),
+    path('forum/', include('forum.urls')),
 ]

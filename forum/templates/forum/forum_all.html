@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>saferestaurant-Forum</title>
+{% endblock %}
+
+{% block main_content %}
+
+    <h1>Forum List</h1>
+    <br>
+    {% for forum in forums %}
+        <hr>
+        <h3><a href="/forum/forum/{{ forum.slug }}/">{{ forum.title }}</a></h3>
+        {# <h3><a href="{% forum.get_absolute_url %}">{{ forum.title }}</a></h3> #}
+        {{ forum.modify_dt }}
+        <p>{{ forum.description }}</p>
+        <br><br>
+    {% endfor %}
+
+    {# page_obj : paging과 관련된 정보를 관리하는 객체 #}
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">PreviousPage</a>
+    {% endif %}
+
+    &nbsp;&nbsp;[ Page {{ page_obj.number }} of {{  page_obj.paginator.num_pages }} ]&nbsp;&nbsp;
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">NextPage</a>
+    {% endif %}
+
+{% endblock %}

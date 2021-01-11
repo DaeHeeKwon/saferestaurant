@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>saferestaurant-Forum</title>
+{% endblock %}
+
+{% block content %}
+
+    <h1>Forum Archives until {% now "N d, Y" %}</h1>
+
+    {# date_list : ArchiveIndexView에서 제공하는 데이터 #}
+
+    {% for date in date_list %}
+    <a href="{% url 'forum:forum_year_archive' date|date:'Y' %}"
+       class="btn btn-outline-primary btn-sm mx-1">
+        Year-{{ date|date:"Y" }}</a>
+    {% endfor %}
+
+
+    <br><br>
+
+    <div>
+        <ul>
+            {% for forum in object_list %}
+            <li class="h5">
+                {{ forum.modify_dt|date:"Y-m-d" }}&emsp;
+                <a href="{{ forum.get_absolute_url }}"><strong>{{ forum.title }}</strong></a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock %}
+
