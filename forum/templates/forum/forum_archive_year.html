@@ -4,9 +4,9 @@
 <title>saferestaurant-Forum</title>
 {% endblock %}
 
-{% block content %}
+{% block main_content %}
 
-    <h1>Post Archives for {{ year|date:"Y" }}</h1>
+    <h1>Forum Archives for {{ year|date:"Y" }}</h1>
 
     {% for date in date_list %}
     <a href="{% url 'forum:forum_month_archive' date|date:'Y' date|date:'m' %}"
