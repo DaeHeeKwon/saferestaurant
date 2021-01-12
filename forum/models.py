@@ -14,7 +14,7 @@ class Forum(models.Model):
     slug = models.SlugField(verbose_name="SLUG", max_length=100, allow_unicode=True, help_text="one word for title alias") # this is title -> this-is-title
     addr = models.CharField(verbose_name="ADDRESS", max_length=1000)
     addr_detail = models.CharField(verbose_name="ADDRESS DETAIL", max_length=200, blank=True)
-    description = models.CharField(verbose_name="DESCRIPTION", max_length=200)
+    description = models.CharField(verbose_name="DESCRIPTION", max_length=2000)
     create_dt = models.DateTimeField(verbose_name="CREATE DATE", auto_now_add=True)
     modify_dt = models.DateTimeField(verbose_name="MODIFY DATE", auto_now=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, verbose_name="OWNER")

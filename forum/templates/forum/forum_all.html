@@ -7,15 +7,18 @@
 {% block main_content %}
 
     <h1>Forum List</h1>
+    <hr>
     <br>
     {% for forum in forums %}
         <hr>
-        <h3><a href="/forum/forum/{{ forum.slug }}/">{{ forum.title }}</a></h3>
+        <h3><a href="/forum/forum/{{ forum.slug }}/">{{ forum.title }}</a> [{{ forum.owner }}]</h3>
         {# <h3><a href="{% forum.get_absolute_url %}">{{ forum.title }}</a></h3> #}
         {{ forum.modify_dt }}
+        <p>{{ forum.addr }}</p>
         <p>{{ forum.description }}</p>
         <br><br>
     {% endfor %}
+    <hr>
 
     {# page_obj : paging과 관련된 정보를 관리하는 객체 #}
     {% if page_obj.has_previous %}

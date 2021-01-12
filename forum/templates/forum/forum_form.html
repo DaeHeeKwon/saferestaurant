@@ -16,7 +16,7 @@
     </div>
     {% endif %}
 
-    <form action="." method="forum" class="card pt-3">{% csrf_token %}
+    <form action="." method="post" class="card pt-3">{% csrf_token %}
 
         <div class="form-group row">
             {{ form.title|add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
@@ -42,6 +42,14 @@
         </div>
 
         <div class="form-group row">
+            {{ form.addr_detail|add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
+            <div class="col-sm-5">
+                {{ form.addr_detail|add_class:"form-control" }}
+            </div>
+            <small class="form-text text-muted">{{ form.addr_detail.help_text }}</small>
+        </div>
+
+        <div class="form-group row">
             {{ form.description|add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
             <div class="col-sm-5">
                 {{ form.description|add_class:"form-control" }}
@@ -49,28 +57,14 @@
             <small class="form-text text-muted">{{ form.description.help_text }}</small>
         </div>
 
-        <div class="form-group row">
-            {{ form.content|add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
-            <div class="col-sm-8">
-                {{ form.content|add_class:"form-control" }}
-            </div>
-        </div>
-		{% comment %}
-        <div class="form-group row">
-            {{ form.tags|add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
-            <div class="col-sm-5">
-                {{ form.tags|add_class:"form-control" }}
-            </div>
-            <small class="form-text text-muted">{{ form.tags.help_text }}</small>
-        </div>
-		{% endcomment %}
         <div class="form-group">
             <div class="offset-sm-2 col-sm-5">
                 <input type="submit" value="Submit" class="btn btn-info"/>
+                <input type="hidden" name='next' value="{{ next }}"/>
             </div>
         </div>
 
     </form>
 
-{% endblock %}
+{% endblock main_content %}
 

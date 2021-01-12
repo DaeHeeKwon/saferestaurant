@@ -65,13 +65,13 @@
                                 </a>
                                 <ul class="header3-sub-list list-unstyled">
                                     <li>
-                                        <a href="#">안전 식당 정보 열람</a>
+                                        <a href="{% url 'forum:index' %}">안전 식당 정보 열람</a>
                                     </li>
                                     <li>
-                                        <a href="#">안전 식당 제보</a>
+                                        <a href="{% url 'forum:add' %}">안전 식당 제보</a>
                                     </li>
                                     <li>
-                                        <a href="#">정보 수정</a>
+                                        <a href="{% url 'forum:change' %}">정보 수정</a>
                                     </li>
                                 </ul>
                             </li>
@@ -515,6 +515,7 @@
                 </div>
             </div>
         </section>
+
         <!-- END MAIN CONTENT-->
             
             <!-- END STATISTIC CHART-->

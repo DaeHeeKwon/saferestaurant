@@ -26,7 +26,7 @@
         {% for item in object_list %}
         <tr>
             <td>{{ item.title }}</td>
-            <td>{{ item.addr }}</td>
+            <td>{{ item.addr }} {{ item.addr_detail }}</td>
             <td>{{ item.description }}</td>
             <td>{{ item.owner }}</td>
             <td><a href="{% url 'forum:update' item.id %}">Update</a></td>
