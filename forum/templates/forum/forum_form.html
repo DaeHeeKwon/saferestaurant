@@ -33,12 +33,16 @@
             <small class="form-text text-muted">{{ form.slug.help_text }}</small>
         </div>
 
-        <div class="form-group row">
+        <div class="form-group row" >
             {{ form.addr|add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
             <div class="col-sm-5">
                 {{ form.addr|add_class:"form-control" }}
             </div>
             <small class="form-text text-muted">{{ form.addr.help_text }}</small>
+        </div>
+        <button id="addr-submit" class="btn btn-info" type="button" style="margin-top: 10px; width: 150px;margin: 0px 205px 20px;">주소 확인</button>
+        <div style="border: 10px solid gainsboro;">
+            <div id="map" style="height:400px; width:100%;border: 1px solid grey;"></div>
         </div>
 
         <div class="form-group row">
@@ -68,3 +72,51 @@
 
 {% endblock main_content %}
 
+{% block custom_js %}
+<script>
+$(function() {
+    var newValue;
+    // 모든 텍스트의 변경에 반응합니다.
+    $("#addr-submit").on("click", function() {
+    
+        // 현재 변경된 데이터 셋팅
+        var addr = $('#id_addr').val();
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+        mapOption = {
+            center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+            level: 3 // 지도의 확대 레벨
+        };  
+
+        // 지도를 생성합니다    
+        var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+        // 주소-좌표 변환 객체를 생성합니다
+        var geocoder = new kakao.maps.services.Geocoder();
+
+        // 주소로 좌표를 검색합니다
+        geocoder.addressSearch(addr, function(result, status) {
+            // 정상적으로 검색이 완료됐으면 
+            if (status === kakao.maps.services.Status.OK) {
+
+                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                // 결과값으로 받은 위치를 마커로 표시합니다
+                var marker = new kakao.maps.Marker({
+                    map: map,
+                    position: coords
+                });
+
+                // 인포윈도우로 장소에 대한 설명을 표시합니다
+                var infowindow = new kakao.maps.InfoWindow({
+                    content: '<div style="width:150px;text-align:center;padding:6px 0; border: 1px solid gainsboro;">주소 마커</div>'
+                });
+                infowindow.open(map, marker);
+
+                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                map.setCenter(coords);
+            } 
+        });  
+    });
+});
+</script>
+{% endblock custom_js %}

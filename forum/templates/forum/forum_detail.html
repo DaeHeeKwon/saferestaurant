@@ -8,11 +8,11 @@
 
     <h2 id='titles'>{{ object.title }}</h2>
     <p id = 'addr'>{{ object.addr }}</p>
-    <div style="height:150px; background-color:gainsboro;">
+    <div style="height:100px; background-color:gainsboro; padding: 10px;">
         {{object.description}}
     </div>
-    <div>
-        <div id="map" style="height:400px; width:100%;"></div>
+    <div style="border: 10px solid gainsboro;">
+        <div id="map" style="height:400px; width:100%;border: 1px solid grey;"></div>
     </div>
     <p>
         {% if object.get_next %}
@@ -53,7 +53,6 @@
 
         // 정상적으로 검색이 완료됐으면 
         if (status === kakao.maps.services.Status.OK) {
-            alert('wow');
             var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
             // 결과값으로 받은 위치를 마커로 표시합니다
@@ -64,7 +63,7 @@
 
             // 인포윈도우로 장소에 대한 설명을 표시합니다
             var infowindow = new kakao.maps.InfoWindow({
-                content: '<div style="width:150px;text-align:center;padding:6px 0;">'+ titles + '</div>'
+                content: '<div style="width:150px;text-align:center;padding:6px 0; border: 1px solid gainsboro;">'+ titles + '</div>'
             });
             infowindow.open(map, marker);
 
