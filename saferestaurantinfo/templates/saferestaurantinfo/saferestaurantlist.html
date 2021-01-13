@@ -123,6 +123,7 @@ $(function(){
             "success": function(data, status, xhr) {
                 $('#restaurant_card_title').text(data[2]);
                 $('#restaurant_detail_table tbody').empty();
+                $('#map').empty();
                 for (var idx = 0; idx < list_td_names.length; idx++) {
                     var tr = $('<tr></tr>');
                     $('<td></td>').text(list_td_names[idx]).appendTo(tr);
@@ -158,7 +159,7 @@ $(function(){
 
                         // 인포윈도우로 장소에 대한 설명을 표시합니다
                         var infowindow = new kakao.maps.InfoWindow({
-                            content: '<div style="width:150px;text-align:center;padding:6px 0; border: 1px solid gainsboro;">주소 마커</div>'
+                            content: '<div style="width:150px;text-align:center;padding:6px 0; border: 1px solid gainsboro;">' + data[2] + '</div>'
                         });
                         infowindow.open(map, marker);
 

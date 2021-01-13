@@ -9,6 +9,10 @@
     <h1>사용자 제보 안심식당 게시판</h1>
     <hr>
     <br>
+    <div>
+        <button class="btn btn-info"><a href="{% url 'forum:add' %}" style="color:white">제보글 작성</a></button>
+        <button class="btn btn-info"><a href="{% url 'forum:change' %}" style="color:white">정보 수정(작성자만 가능)</a></button>
+    </div>
     {% for forum in forums %}
         <hr>
         <h3><a href="/forum/forum/{{ forum.slug }}/">{{ forum.title }}</a> [게시자 : {{ forum.owner }}]</h3>
